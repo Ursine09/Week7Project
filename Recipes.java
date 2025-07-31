@@ -1,23 +1,12 @@
-/**
- * 
- */
-package recipes;
+package projects;
 
-import java.sql.Connection;
+import projects.dao.DbConnection;
 
-import recipes.dao.DbConnection;
+public class ProjectsApp {
 
-/**
- * 
- */
-public class Recipes {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-	DbConnection.getConnection();
+		// TODO Auto-generated method stub
 
+DbConnection.getConnection();
 	}
-
 }
