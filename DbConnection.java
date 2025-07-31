@@ -1,33 +1,33 @@
-package recipes.dao;
+package projects.dao;
 
-import java.nio.file.attribute.AclEntry;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import projects.exception.DbException;
 
-import com.mysql.cj.exceptions.CJConnectionFeatureNotAvailableException;
-import com.mysql.cj.exceptions.StatementIsClosedException;
-import com.mysql.cj.telemetry.TelemetryAttribute;
 
 public class DbConnection {
-private static final String SCHEMA_STRING = "recipes";
-private static final String USER = "recipes";
-private static final String PASSWORD_STRING = "recipes";
-private static final String HO_STRING = "localhost";
-private static final int PORT = 3306; }
-
-public static Connection getConnection() {
-	String urlString = String.format("jdbc.mysql://%s:%d/%s?user=%s&password=%s*useSSL=false", HOST, PORT, SCHEMA, USER, PASSWORD);
 	
-	System.out.println("Connecting with url=" + url);
+	private static  String HOST = "localhost";
+	private static  String PASSWORD = "projects";
+	private static  int PORT = 3306;
+	private static  String SCHEMA = "projects";
+	private static  String USER = "projects";
 	
-	try {
-	Connection conn = DriverManager.getConnection(url);
-	System.out.println("Successfully obtained connection!");
-	return conn;
-	
-	} catch (SQLException e) {
-		throw new DbException(e);
-	
+	public static Connection getConnection() {
+		String uri = String.format("jdbc:mysql://%s:%d/%s?user=%s&password=%s", HOST, PORT, SCHEMA, USER, PASSWORD);
+		
+		System.out.println("Connecting with url=" + uri);
+		
+		try {
+			Connection conn= DriverManager.getConnection(uri);
+			System.out.println("Connection to schema ' " + SCHEMA + "' is successful.");
+			return conn;
+		} catch (SQLException e) {
+			System.out.println("Unable to get connection at " + uri);
+			throw new DbException("Unable to get connection at \" + uri");
+		}
+	}
 	
 }
+	
